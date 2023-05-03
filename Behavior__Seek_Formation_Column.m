@@ -11,7 +11,6 @@ global ObstaclesB ObstaclesNumB Fights FightsNum MaxFightNum ObstaclesF ;
 global ObstaclesR ObstaclesNumR;
 global Obstacles ObstaclesNum;
 global RedsHP BluesHP;
-
 global kB kR Target1 Target2;
 global Booms BoomsNum BoomsPlot ;
 %%
@@ -23,15 +22,34 @@ goToAttack = 0;
 global makeInformation;
 makeInformation = zeros(1,BoidsNum);
 global CarsNum Cars;
-
+global MousePosition1
+global Reds RedsNum MaxRedNum ;
+% Number of boids on the top of U-formation
+global NumberBoidsOnTop;
+% Number of boids on the the branch of U-formation
+global NumberBoidsOnBranch;
+Wingspan = ImageWidth;
+% Number of boids on the top of U-formation
+NumberBoidsOnTop = 3;
+% Number of boids on the the branch of U-formation
+NumberBoidsOnBranch = 1;
+% Angle at top of U-formation
+Alpha_U_Formation = 9*pi/9;
 %%
 DieRNum=0;
 % Distance behind leader in the Column-formation
 D_Behind = 20;
+Wingspan = ImageWidth;
+Alpha_V_Formation = 4*pi/9;
+D_Beside = Wingspan*(4 + pi)/8 + 30;
 %%
 %wander
 global ArmyBlues;
 global ArmyBluesNum;
+global MetBlue;
+global SaveBehindLeader;
+global SaveLeaderLeft;
+global SaveLeaderRight;
 
 %%
 
@@ -60,8 +78,7 @@ InitializeObstacles(v_ImageS1,v_AlphaS1,v_ImageS2,v_AlphaS2,v_ImageS3,v_AlphaS3,
 [BluesHP]=InitializeHP(ArmyBluesNum,100,ArmyBlues);
 [BoomsPlot]=InitializeBoom(v_ImageBoom,v_AlphaBoom,v_ImageEmpty,v_AlphaEmpty,Booms,BoomsNum);
 %%
-%Initialize the first positon of Goal
-MousePosition = [730 650 0 0 0];
+
 % MousePosition1 = [400 450 0 0 0];
 % SaveMousePosition = plot(MousePosition(1), MousePosition(2), 'o','MarkerSize',5,'MarkerFaceColor','blue','Color','blue');
 % saveText = text(MousePosition(1) + 30, MousePosition(2)+ 10, 'Goal');
@@ -70,12 +87,39 @@ titleStr = 'Kich ban van chuyen vu khi trang bi';
 title(titleStr);
 set(fHandler, 'WindowButtonDownFcn',@cursorClickCallback);
 
+% Remove the red dot
+function deleteRedCircle(obj,event,SaveMousePosition)    
+        delete(SaveMousePosition);
+
+end
+%% 
+%Event Mouse click
+    function cursorPosition = cursorClickCallback(o,e)
+        p = get(gca,'CurrentPoint');
+        cursorPosition(1:2) = p(1,1:2);
+        cursorPosition(3) = 0;
+        MousePosition1 = cursorPosition;
+        %Draw Circle - position         
+
+            ObstaclesNumR = ObstaclesNumR + 1;
+            ObstaclesR(ObstaclesNumR, 1:3) = zeros(1, 3);
+            SaveMousePosition = plot(MousePosition1(1), MousePosition1(2), 'o','MarkerSize',6, 'MarkerFaceColor','red','Color','red');
+            ObstaclesR(ObstaclesNumR, 1:3) = MousePosition1(1:3);
+            kR= ObstaclesNumR;
+            % Remove the red dot after 1 second
+            t = timer('StartDelay', 2, 'TimerFcn', {@deleteRedCircle, SaveMousePosition});
+            start(t);
+
+    end
+
+
 %% calculate agents' positions to move to each iteration
 % setappdata(0, 'OldTarget', Targets(1, 1:3));
 % timeTick = 1;
 
+
 %% INITIALIZE COLUMN-FORMATION FOR FLOCK
-Boids(1,1:3) = [100 40 0];
+Boids(1,1:3) = [180 90 0];
 Boids(1,:) = applyForce(Boids(1,:), 0);
 Leader = Boids(1, :);
 BehindPosition  = Leader;
@@ -104,16 +148,16 @@ count=0;
 
 while (timeTick < TimeSteps)
     %%
-    %% set Target
+     %% set Target
     tempBlues = ArmyBlues;
     tempReds = Boids;
     tempCars = Cars;
    
-    % Tính toán th?i gian ?ã trôi qua
+    % Tï¿½nh toï¿½n th?i gian ?ï¿½ trï¿½i qua
     if stop_flag 
     elapsed_time = toc;
     
-    % N?u th?i gian ?ã trôi qua ??t ??n 10 giây thì ??t stop_flag = true
+    % N?u th?i gian ?ï¿½ trï¿½i qua ??t ??n 10 giï¿½y thï¿½ ??t stop_flag = true
     if elapsed_time > 10
         stop_flag = false;
         Cars(:,10) = 3;
@@ -125,12 +169,12 @@ while (timeTick < TimeSteps)
     end
         
     
-    % T?m d?ng vòng l?p trong m?t kho?ng th?i gian ng?n
+    % T?m d?ng vï¿½ng l?p trong m?t kho?ng th?i gian ng?n
     
     
     
     
-    
+        
     for BluesIndex = 1:ArmyBluesNum
         % steering
         ArmyBlues = updateAtBoundary(ArmyBlues,BluesIndex);
@@ -162,8 +206,61 @@ while (timeTick < TimeSteps)
     
     %% Moving Boids
     Leader = Boids(1, :);
+    %[Boids, BoidIndex] = steer_Seek_Formation_Column(MousePosition, Boids, Leader, D_Behind);
+    %MetBlue=1;
+    if MetBlue==0
+        [Boids, BoidIndex] = steer_Seek_Formation_Column(MousePosition, Boids, Leader, D_Behind);
+    else       
+        % Calculate the horizontal angle of the Leader
+        Alpha_Horizontal = CalculationHorizontalAngle(Leader);
+
+        %Find the RightBeside and LeftBeside positions of Leader
+        [RightBesidePosition, LeftBesidePosition] = FindBesideLeader(Leader, ...
+                                            Alpha_Horizontal, D_Behind, D_Beside);
+        %RedrawBoid(Boids,BoidsNum,v_Image,v_Alpha,v_ImageRip,v_AlphaRip,BoidsPlot);
+        % Assign 2-nd Boid to the right of 1-st Boid
+        Boids(2, 1:6) = RightBesidePosition;
+        Boids(2,:) = applyForce(Boids(2,:), 0);
+        RightBesidePosition = Boids(2, :);
+
+        % Assign 3-rd boid to the left of of 1-st Boid
+        Boids(3, 1:6) = LeftBesidePosition;
+        Boids(3,:) = applyForce(Boids(3,:), 0);
+        LeftBesidePosition = Boids(3, :);
+        BoidIndex = 4;
+        %RedrawBoid(Boids,BoidsNum,v_Image,v_Alpha,v_ImageRip,v_AlphaRip,BoidsPlot);
+        while BoidIndex <= BoidsNum
+            D_Beside_tmp = D_Beside;
+            D_Behind_tmp = D_Behind;
+            if ((BoidIndex > NumberBoidsOnTop) && (BoidIndex <= NumberBoidsOnTop + 2*NumberBoidsOnBranch))
+                D_Behind_tmp = D_Behind + 50;
+                D_Beside_tmp = D_Beside_tmp -90;
+            else
+                if (BoidIndex >= NumberBoidsOnTop + 2*NumberBoidsOnBranch)
+                    D_Beside_tmp = 0;
+                    D_Behind_tmp = D_Behind + 50;
+                end
+            end
+
+            %Find the RightBeside position of RightBesidePosition (2-nd Boid)
+            [RightBesidePosition, ~] = FindBesideLeader(RightBesidePosition, ...
+                                            Alpha_Horizontal, D_Behind_tmp, D_Beside_tmp);
+            Boids(BoidIndex, 1:6) = RightBesidePosition;
+            RightBesidePosition = Boids(BoidIndex,:);
+            Boids(BoidIndex,:) = applyForce(Boids(BoidIndex,:), 0);
+
+            BoidIndex = BoidIndex + 1;
+            [~, LeftBesidePosition] = FindBesideLeader(LeftBesidePosition, ...
+                                            Alpha_Horizontal, D_Behind_tmp, D_Beside_tmp);
+            Boids(BoidIndex, 1:6) = LeftBesidePosition;
+            LeftBesidePosition = Boids(BoidIndex,:);
+            Boids(BoidIndex,:) = applyForce(Boids(BoidIndex,:), 0);
+
+            BoidIndex = BoidIndex + 1;
+        end
+         
+    end
     
-    [Boids, BoidIndex] = steer_Seek_Formation_Column(MousePosition, Boids, Leader, D_Behind);
     %     Draw the footprint and lines of Column-formation every 20 steps
     %     if (mod(timeTick,40) == 0)
     %         for BoidIndex = 1:BoidsNum
@@ -214,6 +311,7 @@ while (timeTick < TimeSteps)
                     delete(c1);
                    
                         AttackBlue(1,J)=AttackBlue(1,J)+ DameOfRed;
+                    MetBlue=1;
                   
     %                 if ( 1==1)
     %                     AttackBlue(1,J)=AttackBlue(1,J)+ DameOfRed;

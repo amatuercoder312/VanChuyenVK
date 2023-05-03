@@ -10,7 +10,9 @@ global EnvironmentWidth ImageWidth SafeDistance AlignmentRange CohesionRange ...
     ShootDistanceB ShootDistanceR SizeHPBar BloodPos RedsHP BluesHP  kB kR Target1 Target2 Boids1...
     Cars CarsNum;
 
-global Booms BoomsNum ;    
+global Booms BoomsNum ;  
+global MetBlue;
+MetBlue=0;
 %%
 ShootDistanceB = 200; 
 ShootDistanceR = 200;
@@ -41,7 +43,7 @@ BoidsNum = 300;
 %Number of Targets
 TargetsNum = 1;
 D_BehindLeader = 130;
-
+Target2 = [100 100 0];
 %% Boids data
 %List of Boids
 Boids = zeros(BoidsNum,15); % initialize boids matrix
