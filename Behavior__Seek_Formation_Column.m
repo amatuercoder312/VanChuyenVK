@@ -110,16 +110,18 @@ while (timeTick < TimeSteps)
     tempCars = Cars;
    
     % Tính toán th?i gian ?ã trôi qua
+    if stop_flag 
     elapsed_time = toc;
     
     % N?u th?i gian ?ã trôi qua ??t ??n 10 giây thì ??t stop_flag = true
-    if elapsed_time < 10
+    if elapsed_time > 10
         stop_flag = false;
-        Cars(:,10) = 0;
+        Cars(:,10) = 3;
         %Boids(:,10) = 0;
     else 
-        Cars(:,10) = 3 ;
+        Cars(:,10) = 0 ;
         %Boids(:,10) =3 ;
+    end
     end
         
     
