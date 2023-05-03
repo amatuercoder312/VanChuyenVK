@@ -51,7 +51,7 @@ Boids = zeros(BoidsNum,15); % initialize boids matrix
 Boids(:,1:2) = EnvironmentWidth*(2*rand([BoidsNum,2])-1); % set random position
 % Boids(:,1:2) = 100;
 Boids(:,4:5) = 200; %200*(2*rand([BoidsNum,2])-1); % set random velocity
-Boids(:,10) =3;%*(rand([BoidsNum,1]) + 0.2); % set maxspeed
+Boids(:,10) =10;%*(rand([BoidsNum,1]) + 0.2); % set maxspeed
 Boids(:,11) = 0.2; % set maxforce
 Boids(:,13) = 100; % set max see ahead
 Boids(:,14) = 2; % set max avoid force
@@ -171,8 +171,8 @@ DameOfRed=100;
  Booms = zeros(BoomsNum,4);
  Booms( :,4) = 1;
  Booms(1,1)= 300; Booms(1,2)= 300;
- Booms(2,1)= 350; Booms(2,2)= 200;
+ %Booms(2,1)= 350; Booms(2,2)= 200;
  %Booms(3,1)= 100; Booms(3,2)= 200;
- Booms(4,1)= 100; Booms(4,2)= 100;
+ %Booms(4,1)= 100; Booms(4,2)= 100;
 
 end

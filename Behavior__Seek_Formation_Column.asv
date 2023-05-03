@@ -100,8 +100,9 @@ RedrawGraphics(Boids,BoidsNum,v_Image,v_Alpha,BoidsPlot);
 % end
 
 timeTick = 1;
-
+stop = false;
 count=0;
+
 while (timeTick < TimeSteps)
     %%
     %% set Target
@@ -239,7 +240,9 @@ while (timeTick < TimeSteps)
               RedrawBoom(Booms,BoomsNum,v_ImageBoom,v_AlphaBoom,v_ImageEmpty,v_AlphaEmpty,BoomsPlot);
               [BombsPlot]=InitializeBomb(v_ImageN,v_AlphaN,i);
               pause(0.3);
+              
               delete(BombsPlot);
+              tic;
             end
             
         end

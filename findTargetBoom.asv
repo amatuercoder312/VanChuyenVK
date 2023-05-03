@@ -5,8 +5,7 @@ global Targets;
 global Reds;
 global RedsNum  Cars CarsNum;
 for i=1:CarsNum
-    if (dist(Booms,Cars(i,1:4))<50 ) 
-        Cars(:,10) = 3
+    if (dist(Booms,Cars(i,1:4))<10) 
         Targets(index)=i;
         index=index+1;
     end

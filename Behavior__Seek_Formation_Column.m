@@ -11,8 +11,7 @@ global ObstaclesB ObstaclesNumB Fights FightsNum MaxFightNum ObstaclesF ;
 global ObstaclesR ObstaclesNumR;
 global Obstacles ObstaclesNum;
 global RedsHP BluesHP;
-global DameOfBlue;
-global DameOfRed;
+
 global kB kR Target1 Target2;
 global Booms BoomsNum BoomsPlot ;
 %%
@@ -100,14 +99,35 @@ RedrawGraphics(Boids,BoidsNum,v_Image,v_Alpha,BoidsPlot);
 % end
 
 timeTick = 1;
-
+stop_flag = false;
 count=0;
+
 while (timeTick < TimeSteps)
     %%
     %% set Target
     tempBlues = ArmyBlues;
     tempReds = Boids;
     tempCars = Cars;
+   
+    % Tính toán th?i gian ?ã trôi qua
+    elapsed_time = toc;
+    
+    % N?u th?i gian ?ã trôi qua ??t ??n 10 giây thì ??t stop_flag = true
+    if elapsed_time < 10
+        stop_flag = false;
+        Cars(:,10) = 0;
+        %Boids(:,10) = 0;
+    else 
+        Cars(:,10) = 3 ;
+        %Boids(:,10) =3 ;
+    end
+        
+    
+    % T?m d?ng vòng l?p trong m?t kho?ng th?i gian ng?n
+    
+    
+    
+    
     
     for BluesIndex = 1:ArmyBluesNum
         % steering
@@ -134,6 +154,7 @@ while (timeTick < TimeSteps)
     %%
     %% Moving the 1-st Boid (as a leader)
     %force = steer_arrival(Boids(1,:), MousePosition); %Move toward the mouse
+    MousePosition = [horzcat(Cars(1,1))+100 horzcat(Cars(1,2))+100 0 0 0];
     force = steer_arrival(Boids(1,:), MousePosition); %Move toward the mouse
     Boids(1,:) = applyForce(Boids(1,:), force);
     
@@ -238,8 +259,11 @@ while (timeTick < TimeSteps)
               Booms(i,4)=0;
               RedrawBoom(Booms,BoomsNum,v_ImageBoom,v_AlphaBoom,v_ImageEmpty,v_AlphaEmpty,BoomsPlot);
               [BombsPlot]=InitializeBomb(v_ImageN,v_AlphaN,i);
-              pause(10);
+              pause(0.3);
+              
               delete(BombsPlot);
+              tic;
+              stop_flag = true;
             end
             
         end
