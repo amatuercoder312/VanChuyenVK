@@ -95,21 +95,11 @@ end
 %% 
 %Event Mouse click
     function cursorPosition = cursorClickCallback(o,e)
-        p = get(gca,'CurrentPoint');
-        cursorPosition(1:2) = p(1,1:2);
-        cursorPosition(3) = 0;
-        MousePosition1 = cursorPosition;
-        %Draw Circle - position         
-
-            ObstaclesNumR = ObstaclesNumR + 1;
-            ObstaclesR(ObstaclesNumR, 1:3) = zeros(1, 3);
-            SaveMousePosition = plot(MousePosition1(1), MousePosition1(2), 'o','MarkerSize',6, 'MarkerFaceColor','red','Color','red');
-            ObstaclesR(ObstaclesNumR, 1:3) = MousePosition1(1:3);
-            kR= ObstaclesNumR;
-            % Remove the red dot after 1 second
-            t = timer('StartDelay', 2, 'TimerFcn', {@deleteRedCircle, SaveMousePosition});
-            start(t);
-
+        if MetBlue==0
+            MetBlue=1;
+        else            
+            MetBlue=0;
+        end
     end
 
 
