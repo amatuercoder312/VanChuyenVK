@@ -146,17 +146,19 @@ while (timeTick < TimeSteps)
    
     % T�nh to�n th?i gian ?� tr�i qua
     if stop_flag 
-    elapsed_time = toc;
-    
-    % N?u th?i gian ?� tr�i qua ??t ??n 10 gi�y th� ??t stop_flag = true
-    if elapsed_time > 10
-        stop_flag = false;
+        elapsed_time = toc;
+
+        % N?u th?i gian ?� tr�i qua ??t ??n 10 gi�y th� ??t stop_flag = true
+        if elapsed_time > 10
+            stop_flag = false;
+            Cars(:,10) = 3;
+            %Boids(:,10) = 0;
+        else 
+            Cars(:,10) = 0 ;
+            %Boids(:,10) =3 ;
+        end
+    else
         Cars(:,10) = 3;
-        %Boids(:,10) = 0;
-    else 
-        Cars(:,10) = 0 ;
-        %Boids(:,10) =3 ;
-    end
     end
         
     
@@ -309,7 +311,7 @@ while (timeTick < TimeSteps)
                     pause(0.02);
                     delete(c1);
                    
-                        AttackBlue(1,J)=AttackBlue(1,J)+ DameOfRed;
+                        AttackBlue(1,J)=AttackBlue(1,J)+ DameOfRed*rand(1,1);
                     MetBlue=1;
                   
     %                 if ( 1==1)
@@ -338,7 +340,7 @@ while (timeTick < TimeSteps)
                     sound(gun,gunFs);
                     delete(c2);
                     
-                        AttackRed(1,J)=AttackRed(1,J)+DameOfBlue;
+                        AttackRed(1,J)=AttackRed(1,J)+DameOfBlue*rand(1,1);
                         MetRed=1;
                    
 
