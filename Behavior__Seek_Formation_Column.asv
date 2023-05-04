@@ -211,18 +211,15 @@ while (timeTick < TimeSteps)
                                             Alpha_Horizontal, D_Behind, D_Beside);
         RedrawBoid(Boids,BoidsNum,v_Image,v_Alpha,v_ImageRip,v_AlphaRip,BoidsPlot);
         % Assign 2-nd Boid to the right of 1-st Boid
-        pos1=(RightBesidePosition(1:3)-Boids(2, 1:3))/10+Boids(2, 1:3);
+        
         Boids(2, 1:6) = RightBesidePosition;
-        Boids(2,1:3)=pos1;
         Boids(2,:) = applyForce(Boids(2,:), 0);
         RightBesidePosition = Boids(2, :);
         RedrawBoid(Boids,BoidsNum,v_Image,v_Alpha,v_ImageRip,v_AlphaRip,BoidsPlot)
         % Assign 3-rd boid to the left of of 1-st Boid
-        pos2=(LeftBesidePosition(1:3)-Boids(3, 1:3))/10+Boids(3, 1:3);
         Boids(3, 1:6) = LeftBesidePosition;
-        Boids(3,1:3)=pos2;
         Boids(3,:) = applyForce(Boids(3,:), 0);
-        
+        pos2=
         LeftBesidePosition = Boids(3, :);
         RedrawBoid(Boids,BoidsNum,v_Image,v_Alpha,v_ImageRip,v_AlphaRip,BoidsPlot)
         BoidIndex = 4;
