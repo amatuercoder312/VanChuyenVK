@@ -173,7 +173,8 @@ while (timeTick < TimeSteps)
 
             CurrentBoid = ArmyBlues(BluesIndex, :);
             %         force1 = steer_wander(CurrentBoid) + steer_separation(CurrentBoid) + steer_collision_avoidance1(CurrentBoid);
-            force1 = steer_wander(CurrentBoid) + steer_separation(CurrentBoid) + steer_collision_avoidance1(CurrentBoid);
+            %force1 = steer_wander(CurrentBoid) + steer_separation(CurrentBoid) + steer_collision_avoidance1(CurrentBoid); 
+            force1 = steer_arrival(CurrentBoid, Cars(1,1:5)) + steer_separation(CurrentBoid) + steer_collision_avoidance1(CurrentBoid);
             steer_collision_avoidance1(CurrentBoid);
             ArmyBlues(BluesIndex,:) = applyForce(CurrentBoid, force1);
         end
