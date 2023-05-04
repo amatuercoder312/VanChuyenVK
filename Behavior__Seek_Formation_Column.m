@@ -106,7 +106,8 @@ end
 %% calculate agents' positions to move to each iteration
 % setappdata(0, 'OldTarget', Targets(1, 1:3));
 % timeTick = 1;
-
+DameOfBlue = 10;
+DameOfRed= 10;
 
 %% INITIALIZE COLUMN-FORMATION FOR FLOCK
 Boids(1,1:3) = [180 90 0];
