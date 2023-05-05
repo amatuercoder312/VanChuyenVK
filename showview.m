@@ -21,7 +21,7 @@ SET_GLOBAL_VARIABLES()
 %     Behavior_Start();
 
 % [v_ImageF,v_AlphaF,FlightsPlot]=InitializeFlight();
-        BoidsNum = 6; % Choose number of Boids to demo
+        BoidsNum = 1; % Choose number of Boids to demo
         Boids(1,10) = 6; % set max speed of 1-st Boid
         Boids(2:BoidsNum, 10) = 3;
         CarsNum = 1; % Choose number of Boids to demo

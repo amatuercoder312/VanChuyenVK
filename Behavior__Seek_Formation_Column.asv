@@ -395,9 +395,8 @@ while (timeTick < TimeSteps)
     end
     if ( DieRNum == BoidsNum)
         InitializeFlag (v_ImageFB,v_AlphaFB);
-         pause(1);
         sound(fail,failFS);
-        pause(5);
+        pause(0.3)
         break;
     else
         DieRNum =0;
@@ -407,9 +406,7 @@ while (timeTick < TimeSteps)
     %% Red Win
     if Cars(1,1) > (TargetCar(1,1)-50)
         InitializeFlag (v_ImageFR,v_AlphaFR);
-         pause(1);
         sound(win,winFS);
-        pause(5);
         break;
     end
     
