@@ -16,7 +16,7 @@ MetBlue=0;
 global MetRed;
 MetRed=0;
 %%
-ShootDistanceB = 240; 
+ShootDistanceB = 220; 
 ShootDistanceR = 200;
 BloodPos=25;
 AccuracyB =0.9; % do chinh xac

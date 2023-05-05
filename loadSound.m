@@ -1,6 +1,7 @@
 function [bomb,gun,fight,bombFs,gunFs,fightFs]=loadSound()
 [bomb,bombFs] = audioread('soundbomb.wav');
 bomb=bomb(1:6*bombFs);
+bomb = 10 * bomb;
 
 [gun,gunFs] = audioread('MP5_gun.wav');
 gun=gun(1:gunFs);

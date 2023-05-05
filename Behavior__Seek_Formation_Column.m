@@ -361,8 +361,8 @@ while (timeTick < TimeSteps)
               Booms(i,4)=0;
               RedrawBoom(Booms,BoomsNum,v_ImageBoom,v_AlphaBoom,v_ImageEmpty,v_AlphaEmpty,BoomsPlot);
               [BombsPlot]=InitializeBomb(v_ImageN,v_AlphaN,i);
-              pause(0.3);
-              
+              sound(bomb,bombFs);
+              pause(0.3);              
               delete(BombsPlot);
               tic;
               stop_flag = true;
