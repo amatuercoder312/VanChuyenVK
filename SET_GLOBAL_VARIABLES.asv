@@ -12,7 +12,6 @@ global EnvironmentWidth ImageWidth SafeDistance AlignmentRange CohesionRange ...
 global SodilerWidth;
 global Booms BoomsNum ;  
 global MetBlue;
-global rand_pos
 MetBlue=0;
 global MetRed;
 MetRed=0;
@@ -81,7 +80,7 @@ ArmyBlues(:,15) = 100; % set blood
 
 index=1;
 %%%%%
-for i=1:3
+for i=1:4
     ArmyBlues(i,1)= 200 + i*100;
     ArmyBlues(i,2)=400  +i*100;
 end
@@ -183,8 +182,8 @@ DameOfRed=100;
  BoomsNum= 4;
  Booms = zeros(BoomsNum,4);
  Booms( :,4) = 1;
- rand_pos = rand;
- Booms(1,1)= 1000*rand_pos-400; Booms(1,2)= 1000*rand_pos-400;
+ x =
+ Booms(1,1)= 100 + 1000*rand-400; Booms(1,2)= 100 + 1000*rand-400;
  
  %Booms(2,1)= 350; Booms(2,2)= 200;
  %Booms(3,1)= 100; Booms(3,2)= 200;

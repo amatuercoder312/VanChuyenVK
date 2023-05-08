@@ -6,7 +6,7 @@ global Boids;
 global Targets;
 global SaveMousePosition;
 global saveText;
-global CarsPosition
+g
 global ImageWidth;
 global ObstaclesB ObstaclesNumB Fights FightsNum MaxFightNum ObstaclesF ;
 global ObstaclesR ObstaclesNumR;
@@ -198,7 +198,7 @@ while (timeTick < TimeSteps)
     %%
     %% Moving the 1-st Boid (as a leader)
     %force = steer_arrival(Boids(1,:), MousePosition); %Move toward the mouse
-    CarsPosition = [horzcat(Cars(1,1))+120 horzcat(Cars(1,2))+100 0 0 0];
+    CarsPosition = [horzcat(Cars(1,1))+100 horzcat(Cars(1,2))+100 0 0 0];
     force = steer_arrival(Boids(1,:), CarsPosition); %Move toward the mouse
     Boids(1,:) = applyForce(Boids(1,:), force);
     
@@ -207,7 +207,7 @@ while (timeTick < TimeSteps)
     %[Boids, BoidIndex] = steer_Seek_Formation_Column(MousePosition, Boids, Leader, D_Behind);
     %MetBlue=1;
     if MetBlue==0
-        [Boids, BoidIndex] = steer_Seek_Formation_Column(CarsPosition, Boids, Leader, D_Behind);
+        [Boids, BoidIndex] = steer_Seek_Formation_Column(MousePosition, Boids, Leader, D_Behind);
     else       
         % Calculate the horizontal angle of the Leader
         Alpha_Horizontal = CalculationHorizontalAngle(Leader);
@@ -375,7 +375,6 @@ while (timeTick < TimeSteps)
               delete(BombsPlot);
               tic;
               stop_flag = true;
-              MetBlue = 0;
             end
             
         end

@@ -26,7 +26,7 @@ SET_GLOBAL_VARIABLES()
         Boids(2:BoidsNum, 10) = 3;
         CarsNum = 1; % Choose number of Boids to demo
         Cars(1,10) = 3; % set max speed of 1-st Boid
-        ArmyBluesNum = 6;
+        ArmyBluesNum = 5;
         Behavior__Seek_Formation_Column();
    
 % Behaviour__Arrival ();
