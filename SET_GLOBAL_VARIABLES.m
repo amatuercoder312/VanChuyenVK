@@ -184,7 +184,7 @@ DameOfRed=100;
  Booms = zeros(BoomsNum,4);
  Booms( :,4) = 1;
  rand_pos = rand;
- Booms(1,1)= 1000*rand_pos-400; Booms(1,2)= 1000*rand_pos-400;
+ Booms(1,1)= 800*rand_pos; Booms(1,2)= 800*rand_pos;
  
  %Booms(2,1)= 350; Booms(2,2)= 200;
  %Booms(3,1)= 100; Booms(3,2)= 200;
