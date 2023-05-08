@@ -9,7 +9,7 @@ global EnvironmentWidth ImageWidth SafeDistance AlignmentRange CohesionRange ...
     AccuracyB AccuracyR DieRNum DieBNum...
     ShootDistanceB ShootDistanceR SizeHPBar BloodPos RedsHP BluesHP  kB kR Target1 Target2 Boids1...
     Cars CarsNum;
-
+global SodilerWidth;
 global Booms BoomsNum ;  
 global MetBlue;
 MetBlue=0;
@@ -19,8 +19,8 @@ MetRed=0;
 ShootDistanceB = 220; 
 ShootDistanceR = 200;
 BloodPos=25;
-AccuracyB =0.9; % do chinh xac
-AccuracyR =0.9;
+AccuracyB =0.95; % do chinh xac
+AccuracyR =0.95;
 
 DameOfBlue = 10;
 DameOfRed= 10;
@@ -28,7 +28,7 @@ DameOfRed= 10;
 ImageWidth = 60;
 %%
 %%
-
+SodilerWidth=180;
 EnvironmentWidth = 800;
 ImageWidth = 60;
 HeliWidth = EnvironmentWidth / 15;

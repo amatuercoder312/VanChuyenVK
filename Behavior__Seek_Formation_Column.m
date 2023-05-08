@@ -28,6 +28,7 @@ global Reds RedsNum MaxRedNum ;
 global NumberBoidsOnTop;
 % Number of boids on the the branch of U-formation
 global NumberBoidsOnBranch;
+global SodilerWidth;
 Wingspan = ImageWidth;
 % Number of boids on the top of U-formation
 NumberBoidsOnTop = 3;
@@ -35,6 +36,8 @@ NumberBoidsOnTop = 3;
 NumberBoidsOnBranch = 1;
 % Angle at top of U-formation
 Alpha_U_Formation = 9*pi/9;
+AccuracyR = 0.95;
+AccuracyB = 0.95;
 %%
 DieRNum=0;
 % Distance behind leader in the Column-formation
@@ -105,8 +108,8 @@ end
 %% calculate agents' positions to move to each iteration
 % setappdata(0, 'OldTarget', Targets(1, 1:3));
 % timeTick = 1;
-DameOfBlue = 10;
-DameOfRed= 10;
+DameOfBlue = 20;
+DameOfRed= 20;
 
 %% INITIALIZE COLUMN-FORMATION FOR FLOCK
 Boids(1,1:3) = [180 90 0];
@@ -310,7 +313,10 @@ while (timeTick < TimeSteps)
                     pause(0.02);
                     delete(c1);
                    
-                        AttackBlue(1,J)=AttackBlue(1,J)+ DameOfRed*rand(1,1);
+                       % AttackBlue(1,J)=AttackBlue(1,J)+ DameOfRed*rand(1,1);
+                    if ( sqrt(deviationXR*deviationXR+deviationYR*deviationYR) < SodilerWidth) 
+                         AttackBlue(1,J)=AttackBlue(1,J)+DameOfRed; 
+                    end
                     MetBlue=1;
                   
     %                 if ( 1==1)
@@ -339,7 +345,10 @@ while (timeTick < TimeSteps)
                     sound(gun,gunFs);
                     delete(c2);
                     
-                        AttackRed(1,J)=AttackRed(1,J)+DameOfBlue*rand(1,1);
+                       % AttackRed(1,J)=AttackRed(1,J)+DameOfBlue*rand(1,1);
+                        if ( sqrt(deviationXB*deviationXB + deviationYB*deviationYB) < SodilerWidth)
+                             AttackRed(1,J)=AttackRed(1,J)+DameOfBlue;
+                        end
                         MetRed=1;
                    
 
