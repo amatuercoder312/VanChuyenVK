@@ -180,11 +180,15 @@ DameOfBlue = 100;
 DameOfRed=100;
 
 %% Boom
- BoomsNum= 4;
+ BoomsNum= 2;
  Booms = zeros(BoomsNum,4);
  Booms( :,4) = 1;
  rand_pos = rand;
  Booms(1,1)= 800*rand_pos; Booms(1,2)= 800*rand_pos;
+<<<<<<< HEAD
+ Booms(2,1)= 500 +rand_pos*200; Booms(2,2)= 200 + rand_pos*100;
+=======
+>>>>>>> 578cf59de4cfd673d462fb029c1fa048cbacfcd8
  
  %Booms(2,1)= 350; Booms(2,2)= 200;
  %Booms(3,1)= 100; Booms(3,2)= 200;
